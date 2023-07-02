@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Wars App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1 class="title">Star Wars App</h1>
+        <input class="search-input" placeholder="Enter Star Wars topic" type="text" autofocus >
+        <div id="history">
+            <a href="query-history.html" >View Query History</a>
+
+        </div>
+
+
+        <nav class="search-links">
+            <a href="#" class="search-link" data-endpoint="films">Films</a>
+            <a href="#" class="search-link" data-endpoint="people">Characters</a>
+            <a href="#" class="search-link" data-endpoint="planets">Planets</a>
+            <a href="#" class="search-link" data-endpoint="starships">Starships</a>
+        </nav>
+    </header>
+    <main>
+
+        <div class="search-results"></div>
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="modal-details"></div>
+            </div>
+        </div>
+    </main>
+ 
+  
+  <script type="module"  src="App.js" ></script>
+</html>

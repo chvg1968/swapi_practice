@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "debounce": "^1.2.1",
+    "lodash": "^4.17.21",
+    "require": "^2.4.20",
+    "serve": "^14.2.0"
+  }
+}
