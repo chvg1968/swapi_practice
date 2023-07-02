@@ -1,6 +1,7 @@
-export function saveQuery(query, isModal = false, timestamp = null) {
+export function saveQuery(query, endpoint, isModal = false, timestamp = null) {
   const queryObj = {
     query: query,
+    endpoint: endpoint,
     timestamp: timestamp || new Date().getTime(),
     isModal: isModal
   };
@@ -9,16 +10,15 @@ export function saveQuery(query, isModal = false, timestamp = null) {
   previousQueries.push(queryObj);
   localStorage.setItem('queries', JSON.stringify(previousQueries));
 
-  displayQuery(query, queryObj.timestamp);
+  displayQuery(query, endpoint, queryObj.timestamp);
 }
 
-export function displayQuery(query, timestamp) {
+export function displayQuery(query, endpoint, timestamp) {
   if (document.location.pathname === '/src/query-history.html') {
     const formattedTimestamp = new Date(timestamp).toLocaleString();
     const li = document.createElement('li');
-    li.textContent = `${query} (timestamp: ${formattedTimestamp})`;
+    li.textContent = `${query} (endpoint: ${endpoint}, timestamp: ${formattedTimestamp})`;
     const queryHistory = document.getElementById('query-history');
     queryHistory.appendChild(li);
   }
 }
-
