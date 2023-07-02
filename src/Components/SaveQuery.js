@@ -13,7 +13,7 @@ export function saveQuery(query, isModal = false, timestamp = null) {
 }
 
 export function displayQuery(query, timestamp) {
-  if (document.location.pathname === '/query-history.html') {
+  if (document.location.pathname === '/src/query-history.html') {
     const formattedTimestamp = new Date(timestamp).toLocaleString();
     const li = document.createElement('li');
     li.textContent = `${query} (timestamp: ${formattedTimestamp})`;
