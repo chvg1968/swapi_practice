@@ -1,9 +1,12 @@
 import { SearchInput } from "./Components/SearchInput.js";
-import { showDetails } from "./Components/Modal.js";
+import { showDetails, closeModal } from "./Components/Modal.js";
 import { renderSearchResults } from "./Components/SearchResults.js";
 import { saveQuery } from "./Components/SaveQuery.js";
 
 const endpoints = ["films", "people", "planets", "starships"];
+const customTimestamp = new Date().toLocaleString();
+let isModalOpen = false;
+const BASE_URL = "https://swapi.dev/api/"; 
 
 async function fetchData(url) {
   try {
@@ -16,13 +19,12 @@ async function fetchData(url) {
   }
 }
 
-
 function searchSwapi(endpoint, query) {
   if (!query && !endpoints.includes(endpoint)) {
     return;
   }
 
-  let url = `https://swapi.dev/api/${endpoint}/`;
+  let url = `${BASE_URL}${endpoint}/`;
   if (query) {
     url += `?search=${encodeURIComponent(query)}`;
   }
@@ -34,9 +36,14 @@ function searchSwapi(endpoint, query) {
   return fetchData(url)
     .then((data) => {
       console.log(data);
-      renderSearchResults(data, showDetails);
-      const customTimestamp = new Date().toLocaleString();
-      saveQuery(query, endpoint, false, customTimestamp);
+      renderSearchResults(data, (result)=>{
+        showDetails(result);
+        isModalOpen = true;
+        console.log("Modal window opening");
+        resultsContainer.classList.add("loading");
+        saveQuery(query, endpoint, isModalOpen, customTimestamp); 
+      });
+      // Register modal open event in local storage
       return data;
     })
     .catch((error) => {
@@ -52,17 +59,23 @@ function handleSearchLinkClick(event) {
   event.preventDefault();
   const searchInput = document.querySelector(".search-input");
   const query = searchInput.value.trim();
-  const endpoint = event.target.dataset.endpoint; 
-  const isModal = true; 
-  searchSwapi(endpoint, query, isModal);
+  const endpoint = event.target.dataset.endpoint;
+  // isModalOpen = false; // Reset the modal state
+  searchSwapi(endpoint, query);
 }
-
-SearchInput(searchSwapi);
 
 const searchLinks = document.querySelectorAll(".search-link");
 searchLinks.forEach((link) => {
   link.addEventListener("click", handleSearchLinkClick);
 });
 
+const closeBtn = document.querySelector(".close");
+closeBtn.addEventListener("click", () => {
+  closeModal();
+  isModalOpen = false; // Reset the modal state to closed
+  console.log("Modal window closing");
+  const resultsContainer = document.querySelector(".search-results");
+  resultsContainer.classList.remove("loading");
+});
 
-
+SearchInput(searchSwapi);

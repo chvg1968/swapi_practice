@@ -1,4 +1,4 @@
-export function saveQuery(query, endpoint, isModal = false, timestamp = null) {
+export function saveQuery(query, endpoint, isModal=false, timestamp = null) {
   const queryObj = {
     query: query,
     endpoint: endpoint,
@@ -23,8 +23,8 @@ export function displayQuery() {
 
   queries.forEach(queryObj => {
     const formattedTimestamp = new Date(queryObj.timestamp).toLocaleString();
-    const li = document.createElement('li');
-    li.textContent = `${queryObj.query} ${queryObj.endpoint} (timestamp: ${formattedTimestamp})`;
+    const li = document.createElement('li'); 
+    li.textContent = `${queryObj.query} ${queryObj.endpoint} ${queryObj.isModal} (timestamp: ${formattedTimestamp})`;
     queryHistory.appendChild(li);
   });
 }

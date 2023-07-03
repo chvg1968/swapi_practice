@@ -1,4 +1,3 @@
-
 import { saveQuery } from "./SaveQuery.js";
 
 export async function showDetails(result) {
@@ -47,7 +46,7 @@ export async function showDetails(result) {
     const queryInput = document.querySelector(".search-input");
     const query = queryInput.value.trim();
     saveQuery(query, true); // Call saveQuery to store the query in local storage
-    modal.style.display = "none";
+    closeModal(); // Call the closeModal function to hide the modal
   });
 }
 
@@ -60,4 +59,9 @@ async function getNamesFromUrls(urls) {
 
   const names = await Promise.all(promises);
   return names;
+}
+
+export function closeModal() {
+  const modal = document.querySelector(".modal");
+  modal.style.display = "none";
 }
