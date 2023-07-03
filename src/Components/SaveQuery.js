@@ -13,12 +13,21 @@ export function saveQuery(query, endpoint, isModal = false, timestamp = null) {
   displayQuery(query, endpoint, queryObj.timestamp);
 }
 
-export function displayQuery(query, endpoint, timestamp) {
-  if (document.location.pathname === '/src/query-history.html') {
-    const formattedTimestamp = new Date(timestamp).toLocaleString();
+export function displayQuery() {
+  const queries = JSON.parse(localStorage.getItem('queries')) || [];
+
+  const queryHistory = document.getElementById('query-history');
+  queryHistory.innerHTML = ''; // Clear existing content
+
+  queries.forEach(queryObj => {
+    const formattedTimestamp = new Date(queryObj.timestamp).toLocaleString();
     const li = document.createElement('li');
-    li.textContent = `${query} (endpoint: ${endpoint}, timestamp: ${formattedTimestamp})`;
-    const queryHistory = document.getElementById('query-history');
+    li.textContent = `${queryObj.query} ${queryObj.endpoint} (timestamp: ${formattedTimestamp})`;
     queryHistory.appendChild(li);
-  }
+  });
 }
+
+ 
+window.addEventListener('DOMContentLoaded', displayQuery);
+
+export { saveQuery, displayQuery }; 

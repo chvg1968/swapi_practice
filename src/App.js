@@ -1,7 +1,7 @@
 import { SearchInput } from "./Components/SearchInput.js";
 import { showDetails } from "./Components/Modal.js";
 import { renderSearchResults } from "./Components/SearchResults.js";
-import { saveQuery, displayQuery } from "./Components/SaveQuery.js";
+import { saveQuery } from "./Components/SaveQuery.js";
 
 const endpoints = ["films", "people", "planets", "starships"];
 
@@ -36,7 +36,7 @@ function searchSwapi(endpoint, query) {
       console.log(data);
       renderSearchResults(data, showDetails);
       const customTimestamp = new Date().toLocaleString();
-      saveQuery(query, endpoint, false, customTimestamp);
+      saveQuery(query, endpoint, true, customTimestamp);
       return data;
     })
     .catch((error) => {
@@ -52,8 +52,9 @@ function handleSearchLinkClick(event) {
   event.preventDefault();
   const searchInput = document.querySelector(".search-input");
   const query = searchInput.value.trim();
-  const endpoint = event.target.dataset.endpoint;
-  searchSwapi(endpoint, query);
+  const endpoint = event.target.dataset.endpoint; 
+  const isModal = true; 
+  searchSwapi(endpoint, query, isModal);
 }
 
 SearchInput(searchSwapi);
@@ -63,5 +64,5 @@ searchLinks.forEach((link) => {
   link.addEventListener("click", handleSearchLinkClick);
 });
 
-export { saveQuery, displayQuery }; 
+
 
