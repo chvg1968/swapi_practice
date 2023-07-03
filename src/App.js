@@ -36,7 +36,7 @@ function searchSwapi(endpoint, query) {
       console.log(data);
       renderSearchResults(data, showDetails);
       const customTimestamp = new Date().toLocaleString();
-      saveQuery(query, endpoint, true, customTimestamp);
+      saveQuery(query, endpoint, false, customTimestamp);
       return data;
     })
     .catch((error) => {

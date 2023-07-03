@@ -10,13 +10,15 @@ export function saveQuery(query, endpoint, isModal = false, timestamp = null) {
   previousQueries.push(queryObj);
   localStorage.setItem('queries', JSON.stringify(previousQueries));
 
-  displayQuery(query, endpoint, queryObj.timestamp);
+  displayQuery();
 }
 
 export function displayQuery() {
   const queries = JSON.parse(localStorage.getItem('queries')) || [];
 
   const queryHistory = document.getElementById('query-history');
+  if (!queryHistory) return; // Check if element exists before updating
+
   queryHistory.innerHTML = ''; // Clear existing content
 
   queries.forEach(queryObj => {
@@ -27,7 +29,4 @@ export function displayQuery() {
   });
 }
 
- 
 window.addEventListener('DOMContentLoaded', displayQuery);
-
-export { saveQuery, displayQuery }; 
