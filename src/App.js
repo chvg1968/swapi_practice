@@ -78,4 +78,6 @@ closeBtn.addEventListener("click", () => {
   resultsContainer.classList.remove("loading");
 });
 
+
+
 SearchInput(searchSwapi);

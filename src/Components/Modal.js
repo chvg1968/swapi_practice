@@ -41,13 +41,12 @@ export async function showDetails(result) {
 
   modal.style.display = "block";
 
-  const closeBtn = document.getElementsByClassName("close")[0];
   closeBtn.addEventListener("click", () => {
     const queryInput = document.querySelector(".search-input");
     const query = queryInput.value.trim();
     saveQuery(query, true); // Call saveQuery to store the query in local storage
     closeModal(); // Call the closeModal function to hide the modal
-  });
+  }, {once: true});
 }
 
 async function getNamesFromUrls(urls) {
