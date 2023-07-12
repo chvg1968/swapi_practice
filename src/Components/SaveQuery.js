@@ -10,7 +10,7 @@ export function saveQuery(query, endpoint, isModal=false, timestamp = null) {
   previousQueries.push(queryObj);
   localStorage.setItem('queries', JSON.stringify(previousQueries));
 
-  displayQuery();
+  // displayQuery();
 }
 
 export function displayQuery() {

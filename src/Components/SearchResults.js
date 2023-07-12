@@ -1,3 +1,4 @@
+
 export function renderSearchResults(searchResults, showDetails) {
     const resultsContainer = document.querySelector(".search-results");
     resultsContainer.innerHTML = "";
